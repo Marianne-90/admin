@@ -1,12 +1,20 @@
 import './App.css'
+import { AppRouter } from "./AppRouter/AppRouter";
+import { BrowserRouter } from "react-router-dom";
+import { MainProvider } from "./Context/MainProvider";
+
 
 function App() {
 
 
   return (
-    <>
-    <h1>Solaz</h1>
-    </>
+    <div>
+      <MainProvider>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </MainProvider>
+    </div>
   )
 }
 
