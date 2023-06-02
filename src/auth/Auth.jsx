@@ -1,12 +1,12 @@
 import "./auth.css";
-
+import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { MainContext } from "../Context/MainContext";
 
 export const Auth = () => {
   const { setAuth, mainUrl, setLoading, usuario, setUsuario} = useContext(MainContext);
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +36,6 @@ export const Auth = () => {
 
   return (
     <div className="authConteiner">
-      <div className="authbgblur"></div>
       <h2>Panel de Administrador</h2>
       <div className="authElement">
         <form>
@@ -62,6 +61,7 @@ export const Auth = () => {
           <button type="submit
           " onClick={handleSubmit}>Entrar</button>
         </form>
+        <a onClick={()=>navigate(('/auth/recover'))}>olvidé mi contraseña</a>
       </div>
     </div>
   );
