@@ -5,13 +5,15 @@ export const Recover = () => {
   return (
     <section id="recover">
       <form>
+      <p className="login">Recover</p>
         <label>
-          correo
-          <input type="text" />
+          <input type="mail" 
+          required="required"/>
+          <span>Correo</span>
         </label>
-        <button type="submit" >Recuperar Contraseña</button>
+        <button type="submit">Enviar correo</button>
+        <a onClick={() => navigate("/auth/login")}>Ingresar</a>
       </form>
-      <a onClick={() => navigate("/auth/login")}>volver</a>
     </section>
   );
 };

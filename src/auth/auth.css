@@ -1,0 +1,121 @@
+.authConteiner, #recover {
+  background-color: #e0e0e0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+.authConteiner form, #recover form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+  width: 300px;
+  flex-direction: column;
+  gap: 35px;
+  background: #e3e3e3;
+  box-shadow: 16px 16px 32px #c8c8c8, -16px -16px 32px #fefefeb2;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.authConteiner form label, #recover form label {
+  position: relative;
+  width: 250px;
+}
+
+.authConteiner form input, #recover form input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  color:#333333;
+  font-size: 1em;
+  background: transparent;
+  border-left: 2px solid #333333;
+  border-bottom: 2px solid#333333;
+  transition: 0.1s;
+  border-bottom-left-radius: 8px;
+}
+
+.authConteiner .login, #recover form .login {
+  color:#333333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+
+.authConteiner form span, #recover form span {
+  margin-top: 5px;
+  position: absolute;
+  left: 0;
+  transform: translateY(-4px);
+  margin-left: 10px;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 12px;
+  color: #333333;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 3px;
+  border-radius: 8px;
+}
+
+.authConteiner form input:valid ~ span,
+.authConteiner form input:focus ~ span,
+#recover form input:valid ~ span,
+#recover form input:focus ~ span
+{
+  transform: translateX(113px) translateY(-15px);
+  font-size: 0.8em;
+  padding: 5px 10px;
+  background: #333333;
+  letter-spacing: 0.2em;
+  color: #fff;
+  border: 2px;
+}
+
+.authConteiner form input:valid,
+.authConteiner form input:focus,
+#recover form input:valid,
+#recover form input:focus {
+  border: 2px solid #333333;
+  border-radius: 8px;
+}
+
+.authConteiner form button, #recover form button{
+  height: 45px;
+  width: 100px;
+  border-radius: 5px;
+  border: 2px solid #333333;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.5s;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 1em;
+}
+
+.authConteiner form button:hover, #recover form button:hover {
+  background-color:#333333;
+  color: white;
+}
+
+.authConteiner form a, #recover form a {
+    text-decoration: underline;
+    cursor: pointer;
+    color:#333333;
+    margin-bottom: 20px;
+}
+
+.authConteiner form a:hover, #recover form a:hover{
+color: #e3a871;
+}

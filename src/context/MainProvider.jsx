@@ -11,7 +11,7 @@ export const MainProvider = ({ children }) => {
     : "";
 
   const [auth, setAuth] = useState(authStatus);
-  const [mainUrl, setMainUrl] = useState("https://handler.strudelrestaurante.com/");
+  const [mainUrl, setMainUrl] = useState("http://localhost/solaz/");
   const [loading, setLoading] = useState(false);
   const [miniLoadingp, setMiniLoadingp] = useState(false);
   const [usuario, setUsuario] = useState(userName);
