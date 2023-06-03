@@ -1,11 +1,10 @@
 import './App.css'
 import { AppRouter } from "./AppRouter/AppRouter";
 import { BrowserRouter } from "react-router-dom";
-import { MainProvider } from "./Context/MainProvider";
+import { MainProvider } from "./context/MainProvider";
 
 
 function App() {
-
 
   return (
     <div>
