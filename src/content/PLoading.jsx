@@ -1,3 +1,7 @@
 export const PLoading = () => {
-    return <h2>PLoading</h2>;
+  return (
+    <div className="PLoading">
+      <div className="loader"></div>
+    </div>
+  );
 };

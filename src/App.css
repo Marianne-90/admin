@@ -11,3 +11,11 @@ body, html {
     box-sizing: border-box;
     overflow-x: hidden;
 }
+
+.PLoading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
