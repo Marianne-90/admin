@@ -90,7 +90,7 @@ export const UserSettings = () => {
 
       const data = await response.json();
 
-      Swal.fire("Usuario Actualizado", data.message, "success");
+      Swal.fire("Solicitud Enviada", data.message);
       setLoading(false);
       if (data.message == "Usuario Actualizado") setUsuario(userName.user);
       setUserName({ user: "", password: "" });
@@ -134,7 +134,7 @@ export const UserSettings = () => {
 
       const data = await response.json();
       setLoading(false);
-      Swal.fire("Correo Actualizado", data.message, "success");
+      Swal.fire("Solicitud Enviada", data.message);
       setMail({ mail: "", password: "" });
     } catch (error) {
       setLoading(false);
@@ -192,7 +192,7 @@ export const UserSettings = () => {
 
       const data = await response.json();
 
-      Swal.fire("Contraseña Actualizada", data.message, "success");
+      Swal.fire("Solicitud Enviada", data.message);
       setLoading(false);
       setPass({
         password: "",

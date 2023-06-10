@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { MainContext } from "../../Context/MainContext";
 import { useNavigate } from "react-router-dom";
 
 const routes = [

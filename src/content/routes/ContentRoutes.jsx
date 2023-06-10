@@ -11,7 +11,7 @@ export const ContentRoutes = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="home" element={<HomePage />} />
-      <Route path="blog" element={<Blog />} />
+      <Route path="blog/*" element={<Blog />} />
       <Route path="page" element={<PageSettings />} />
       <Route path="user" element={<UserSettings />} />
       <Route path="/*" element={<Navigate to="/home" />} />
