@@ -10,14 +10,20 @@ export const MainProvider = ({ children }) => {
     ? JSON.parse(sessionStorage.getItem("user"))
     : "";
 
+    const idUser = sessionStorage.getItem("id")
+    ? JSON.parse(sessionStorage.getItem("id"))
+    : "";
+
   const [auth, setAuth] = useState(authStatus);
   const [mainUrl, setMainUrl] = useState("http://localhost/solaz/");
   const [loading, setLoading] = useState(false);
   const [miniLoadingp, setMiniLoadingp] = useState(false);
   const [usuario, setUsuario] = useState(userName);
+  const [id, setId] = useState(idUser);
 
   sessionStorage.setItem("status", JSON.stringify(auth));
   sessionStorage.setItem("user", JSON.stringify(usuario));
+  sessionStorage.setItem("id", JSON.stringify(id));
 
   return (
     <MainContext.Provider
@@ -31,6 +37,8 @@ export const MainProvider = ({ children }) => {
         setMiniLoadingp,
         usuario,
         setUsuario,
+        id, 
+        setId
       }}
     >
       {children}

@@ -4,10 +4,20 @@ import { useContext, useState } from "react";
 import { MainContext } from "../context/MainContext";
 
 export const Auth = () => {
-  const { setAuth, mainUrl, setLoading, usuario, setUsuario } =
+  const { setAuth, mainUrl, setLoading, usuario, setUsuario, setId } =
     useContext(MainContext);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const getData = () => {
+    setLoading(true);
+    fetch(`${mainUrl}user/id/${usuario}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message);
+      })
+      .catch((error) => console.error(error));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +35,15 @@ export const Auth = () => {
 
       const data = await response.json();
       if (data.message == true) {
-        setAuth(data.message);
+        let authStatus = data.message;
+
+        fetch(`${mainUrl}user/id/${usuario}`)
+          .then((response) => response.json())
+          .then((id) => {
+            setId(id.message);
+            setAuth(authStatus);
+          })
+          .catch((error) => console.error(error));
       }
       setLoading(false);
     } catch (error) {

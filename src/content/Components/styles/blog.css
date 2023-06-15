@@ -10,11 +10,11 @@
   top: 40px;
 }
 
-.MainBlog .BlogNavBar .routes a{
+.MainBlog .BlogNavBar .routes a {
   color: rgb(239, 237, 237);
   margin-right: 5px;
   padding-right: 5px;
-  font-size: .75rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   font-weight: 400;
   cursor: pointer;
@@ -22,284 +22,344 @@
   height: 35px;
 }
 
-.MainBlog .BlogNavBar .routes a:hover{
+.MainBlog .BlogNavBar .routes a:hover {
   color: rgb(255, 255, 255);
   text-decoration: underline;
 }
 
 .MainBlog .BlogNavBar .form {
-    --input-bg: #FFf;
-   /*  background of input */
-    --padding: 1.5em;
-    --rotate: 80deg;
-   /*  rotation degree of input*/
-    --gap: 2em;
-    /*  gap of items in input */
-    --icon-change-color: #15A986;
-   /*  when rotating changed icon color */
-    --height: 30px;
-   /*  height */
-    width: 200px;
-    padding-inline-end: 1em;
-   /*  change this for padding in the end of input */
-    background: var(--input-bg);
-    position: relative;
-    border-radius: 4px;
-  }
-  
-  .MainBlog .BlogNavBar .form label {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: var(--height);
-  }
-  
-  .MainBlog .BlogNavBar .form input {
-    width: 100%;
-    padding-inline-start: calc(var(--padding) + var(--gap));
-    outline: none;
-    background: none;
-    border: 0;
-  }
-  /* style for both icons -- search,close */
-  .MainBlog .BlogNavBar .form svg {
-    /* display: block; */
-    color: #111;
-    transition: 0.3s cubic-bezier(.4,0,.2,1);
-    position: absolute;
-    height: 15px;
-  }
-  /* search icon */
-  .MainBlog .BlogNavBar .icon {
-    position: absolute;
-    left: var(--padding);
-    transition: 0.3s cubic-bezier(.4,0,.2,1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
+  --input-bg: #fff;
+  /*  background of input */
+  --padding: 1.5em;
+  --rotate: 80deg;
+  /*  rotation degree of input*/
+  --gap: 2em;
+  /*  gap of items in input */
+  --icon-change-color: #15a986;
+  /*  when rotating changed icon color */
+  --height: 30px;
+  /*  height */
+  width: 300px;
+  padding-inline-end: 1em;
+  /*  change this for padding in the end of input */
+  background: var(--input-bg);
+  position: relative;
+  border-radius: 4px;
+}
+
+.MainBlog .BlogNavBar .form label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--height);
+}
+
+.MainBlog .BlogNavBar .form input {
+  width: 100%;
+  padding-inline-start: calc(var(--padding) + var(--gap));
+  outline: none;
+  background: none;
+  border: 0;
+}
+/* style for both icons -- search,close */
+.MainBlog .BlogNavBar .form svg {
+  /* display: block; */
+  color: #111;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  height: 15px;
+}
+/* search icon */
+.MainBlog .BlogNavBar .icon {
+  position: absolute;
+  left: var(--padding);
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* close button */
+.MainBlog .BlogNavBar .close-btn {
+  /* removing default bg of button */
+  background: none;
+  border: none;
+  right: calc(var(--padding) - var(--gap));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ce5050;
+  padding: 0.1em;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: 0.3s;
+  opacity: 0;
+  transform: scale(0);
+  visibility: hidden;
+  cursor: pointer;
+}
+
+.MainBlog .BlogNavBar .form input:valid ~ .close-btn {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: 0s;
+}
+
+.MainBlog .diccionarioRutas {
+  color: #585858;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: 0.8rem;
+  margin: 0;
+  text-transform: capitalize;
+  gap: 5px;
+}
+
+.MainBlog .blogSubNavbar {
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px;
+}
+
+.MainBlog .blogSubNavbar .buttons button {
+  margin-left: 10px;
+  border: none;
+  background-color: #7e4d12;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.7rem;
+}
+
+.MainBlog .blogSubNavbar .buttons button:hover {
+  background-color: #97601b;
+}
+
+.MainBlog .blogSubNavbar .buttons .VP,
+.MainBlog .blogSubNavbar .buttons .edit {
+  background-color: #3c7c9c;
+}
+
+.MainBlog .blogSubNavbar .buttons .VP:hover,
+.MainBlog .blogSubNavbar .buttons .edit:hover {
+  background-color: #5da2c5;
+}
+
+.MainBlog .blogSubNavbar .buttons .save {
+  background-color: #35983a;
+}
+
+.MainBlog .blogSubNavbar .buttons .save:hover {
+  background-color: #47b74d;
+}
+.MainBlog .blogSubNavbar .buttons .borrador {
+  background-color: #868686;
+}
+
+.MainBlog .blogSubNavbar .buttons .borrador:hover {
+  background-color: #c9c9c9;
+}
+
+.MainBlog .blogSubNavbar .buttons .cancel {
+  background-color: #9a4242;
+}
+
+.MainBlog .blogSubNavbar .buttons .cancel:hover {
+  background-color: #c16363;
+}
+
+.MainBlog .mainImage {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.MainBlog .mainImage .container, .MainBlog .prevView .prevImageContainer  {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: left;
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.MainBlog .mainImage .container button{
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  left: calc(100% - 105px);
+  top: calc(100% - 35px);
+  border: none;
+  background-color: #7e4d12;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.7rem;
+  background-color: #9a4242;
+
+}
 
 
-  /* close button */
-  .MainBlog .BlogNavBar .close-btn {
-    /* removing default bg of button */
-    background: none;
-    border: none;
-    right: calc(var(--padding) - var(--gap));
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ce5050;
-    padding: 0.1em;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    transition: 0.3s;
-    opacity: 0;
-    transform: scale(0);
-    visibility: hidden;
-    cursor: pointer;
-  }
-
- .MainBlog  .BlogNavBar .form input:valid ~ .close-btn {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
-    transition: 0s;
-  }
-
-  .MainBlog .diccionarioRutas {
-    color: #585858;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    font-size: .8rem;
-    margin: 0;
-    text-transform: capitalize;
-    gap: 5px;
-  }
-
-  .MainBlog .blogSubNavbar {
-    margin-top: 35px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 5px;
-  }
-  
-  .MainBlog .blogSubNavbar .buttons button{
-margin-left: 10px;
-border: none;
-background-color: #7e4d12;
-padding: 5px 10px;
-border-radius: 3px;
-color: #FFf;
-cursor: pointer;
-text-transform: uppercase;
-font-weight: 600;
-font-size: .7rem;
-  }
-
-  .MainBlog .blogSubNavbar .buttons button:hover{
-    background-color: #97601b;
-  }
-
-  .MainBlog .blogSubNavbar .buttons .VP,   .MainBlog .blogSubNavbar .buttons .edit{
-    background-color: #3c7c9c;
-  }
-
-  .MainBlog .blogSubNavbar .buttons .VP:hover,   .MainBlog .blogSubNavbar .buttons .edit:hover{
-    background-color: #5da2c5;
-  }
-
-  .MainBlog .blogSubNavbar .buttons .save{
-    background-color: #35983a;
-  }
-
-  .MainBlog .blogSubNavbar .buttons .save:hover{
-    background-color: #47b74d;
-  }
-
-  .MainBlog .blogSubNavbar .buttons .cancel{
-    background-color: #9a4242;
-  }
-
-  .MainBlog .blogSubNavbar .buttons .cancel:hover{
-    background-color: #c16363;
-  }
-
-  .MainBlog .mainImage{
-    width: 100%;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.MainBlog .mainImage .container button:hover {
+  background-color: #c16363;
+}
 
 
-  .MainBlog .mainImage .custum-file-upload {
-    height: 150px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
-    gap: 20px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed #cacaca;
-    background-color: rgba(255, 255, 255, 1);
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0px 48px 35px -48px rgba(0,0,0,0.1);
-  }
-  
-  .MainBlog .mainImage .custum-file-upload .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .MainBlog .mainImage .custum-file-upload .icon svg {
-    height: 50px;
-    fill: rgba(75, 85, 99, 1);
-  }
-  
-  .MainBlog .mainImage .custum-file-upload .text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .MainBlog .mainImage .custum-file-upload .text span {
-    font-weight: 400;
-    color: rgba(75, 85, 99, 1);
-    text-align: center;
-  }
-  
-  .MainBlog .mainImage .custum-file-upload input {
-    display: none;
-  }
+.MainBlog .mainImage .container img, .MainBlog .prevView .prevImageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  .MainBlog  .content {
-    padding: 0 30px;
-  }
+.MainBlog .mainImage .custum-file-upload {
+  height: 150px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cacaca;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px rgba(0, 0, 0, 0.1);
+}
 
-  .MainBlog .newBlog .content{
-    border: #cacaca 1px solid;
-    margin: 20px 30px;
-  }
+.MainBlog .mainImage .custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .MainBlog .blogTitle{
-    text-transform: uppercase;
-    color: #585858;
-    margin: 0;
-    margin-left: 5px;
-  }
-  .MainBlog .newBlog .mainTitle{
-    margin: 20px 0;
-  }
-  .MainBlog .newBlog .mainTitle p{
-    text-transform: uppercase;
-    color: #585858;
-    margin: 0;
-  }
+.MainBlog .mainImage .custum-file-upload .icon svg {
+  height: 50px;
+  fill: rgba(75, 85, 99, 1);
+}
 
-  .MainBlog .newBlog .ajustes {
-    text-transform: uppercase;
-    color: #585858;
-    margin: 0;
-    font-size: .8rem;
-  }
+.MainBlog .mainImage .custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .MainBlog .newBlog .mainTitle input{
-    width: 80%;
-    min-width: 300px;
-    height: 40px;
-    border: #58585897 1px dotted;
-    font-size: 1rem;
-    padding: 0 10px;
-    text-transform: capitalize;
-    }
+.MainBlog .mainImage .custum-file-upload .text span {
+  font-weight: 400;
+  color: rgba(75, 85, 99, 1);
+  text-align: center;
+}
 
-  .MainBlog .newBlog .mainTitle input:focus {
-    outline: none;
-  }
+.MainBlog .mainImage .custum-file-upload input {
+  display: none;
+}
 
-  .MainBlog .newBlog .ajustes{
-    background: #F5F5F5 ;
-    padding: 20px;
-  }
+.MainBlog .content {
+  padding: 0 30px;
+}
 
-  .MainBlog .newBlog .ajustes form > *{
-display: block;
-margin-top: 10px;
-  }
+.MainBlog .newBlog .content {
+  border: #cacaca 1px solid;
+  margin: 20px 30px;
+}
 
+.MainBlog .blogTitle {
+  text-transform: uppercase;
+  color: #585858;
+  margin: 0;
+  margin-left: 5px;
+}
+.MainBlog .newBlog .mainTitle {
+  margin: 20px 0;
+}
+.MainBlog .newBlog .mainTitle p {
+  text-transform: uppercase;
+  color: #585858;
+  margin: 0;
+}
 
-  .MainBlog .newBlog .ajustes form textarea{
-    width: 100% !important;
-    border: #58585897 1px dotted;
-    font-size: 1rem;
-    padding: 10px;
-    text-transform: capitalize;
-  }
-  .MainBlog .newBlog .ajustes form textarea:focus{
-    outline: none;
-  }
+.MainBlog .newBlog .ajustes {
+  text-transform: uppercase;
+  color: #585858;
+  margin: 0;
+  font-size: 0.8rem;
+}
 
-  .MainBlog .newBlog .ajustes form select{
-    height: 30px;
-    border: #58585897 1px dotted;
-    font-size: 1rem;
-    padding: 0 10px;
-    text-transform: capitalize;
-  }
+.MainBlog .newBlog .mainTitle input {
+  width: 80%;
+  min-width: 300px;
+  height: 40px;
+  border: #58585897 1px dotted;
+  font-size: 1rem;
+  padding: 0 10px;
+  text-transform: capitalize;
+}
 
-  .MainBlog .newBlog .ajustes form select:focus{
-        outline: none;
-  }
+.MainBlog .newBlog .mainTitle input:focus {
+  outline: none;
+}
+
+.MainBlog .newBlog .ajustes {
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+.MainBlog .newBlog .ajustes form > * {
+  display: block;
+  margin-top: 10px;
+}
+
+.MainBlog .newBlog .ajustes form textarea {
+  width: 100% !important;
+  border: #58585897 1px dotted;
+  font-size: 0.8rem;
+  padding: 10px;
+}
+.MainBlog .newBlog .ajustes form textarea:focus {
+  outline: none;
+}
+
+.MainBlog .newBlog .ajustes form select {
+  height: 30px;
+  border: #58585897 1px dotted;
+  font-size: 0.8rem;
+  padding: 0 10px;
+  text-transform: capitalize;
+}
+
+.MainBlog .newBlog .ajustes form select:focus {
+  outline: none;
+}
+
+.MainBlog .prevView .content > h1{
+  color:  #3d3d3d97;
+  margin: 0px;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+}
+
+.MainBlog .prevView .content > h6 {
+  color:  #58585897;
+  margin: 0px;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}

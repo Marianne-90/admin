@@ -7,11 +7,12 @@ import { MainContext } from "../../context/MainContext";
 
 export const TopNavBar = () => {
 
-  const { auth, setAuth, setUsuario } = useContext(MainContext);
+  const { auth, setAuth, setUsuario, setId } = useContext(MainContext);
 
   const handleOnLogOut = () => {
     setAuth(!auth);
     setUsuario("");
+    setId("");
   };
 
   return (
