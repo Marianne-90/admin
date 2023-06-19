@@ -5,15 +5,15 @@ import { MainContext } from "../../../context/MainContext";
 import Swal from "sweetalert2";
 import { BlogContext } from "../../../context/blogContext/BlogContext";
 import { CategoryElement } from "./CategoryElement";
-
+import { AddCategory } from "./AddCategory";
 
 export const Settings = () => {
   const { mainUrl, usuario, id } = useContext(MainContext);
-  const { categories, setCategories } = useContext(BlogContext);
-
-  const [loading, setLoading] = useState(false);
+  const { categories, setCategories, loading, setLoading } =
+    useContext(BlogContext);
   const [name, setName] = useState({ user: "", password: "" });
- 
+  const [addCategory, setAddCategory] = useState(false);
+
   const navigate = useNavigate();
 
   const getName = async () => {
@@ -81,7 +81,6 @@ export const Settings = () => {
     }
   };
 
-
   const onChangeName = (e) => {
     let element = e.target.name;
     let value = e.target.value;
@@ -127,12 +126,19 @@ export const Settings = () => {
           </form>
         </div>
         <div className="categories">
+          <h2>Categorías</h2>
           {categories.map((element, index) => (
             <div className="category" key={element.categoria_id}>
-              <CategoryElement {...element} index={index}/>
+              <CategoryElement {...element} index={index} id={id} />
             </div>
           ))}
-          <button>Añadir</button>
+          {addCategory && <AddCategory />}
+          <button
+            onClick={() => setAddCategory(!addCategory)}
+            className={addCategory ? "cancel" : "add"}
+          >
+            {addCategory ? "cancelar" : "añadir"}
+          </button>
         </div>
       </div>
     </section>
