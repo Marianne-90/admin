@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { RoutesDictionary } from "./RoutesDictionary";
-import { useNavigate } from "react-router-dom";
 import { MainContext } from "../../../context/MainContext";
 import Swal from "sweetalert2";
 import { BlogContext } from "../../../context/blogContext/BlogContext";
@@ -13,8 +12,6 @@ export const Settings = () => {
     useContext(BlogContext);
   const [name, setName] = useState({ user: "", password: "" });
   const [addCategory, setAddCategory] = useState(false);
-
-  const navigate = useNavigate();
 
   const getName = async () => {
     return fetch(`${mainUrl}blog/name/${usuario}`)
@@ -98,35 +95,43 @@ export const Settings = () => {
   }
 
   return (
-    <section className="prevView">
+    <section className="blogSettings">
       <div className="blogSubNavbar">
         <RoutesDictionary routes="blog ajustes-del-blog" />
         <div className="buttons">.</div>
       </div>
       <div className="content">
-        <h1>Ajustes del Blog</h1>
+        <h1 className="blogTitle">Ajustes del Blog</h1>
         <div className="userName">
-          <p>Cambiar nombre de público</p>
+          <h2 className="blogSubTitle">Cambiar nombre de público</h2>
           <form action="POST">
-            <input
-              type="text"
-              name="user"
-              value={name.user}
-              onChange={onChangeName}
-              maxLength={80}
-            />
-            <input
-              type="password"
-              value={name.password}
-              name="password"
-              onChange={onChangeName}
-              required={true}
-            />
+            <div className="inputContainerFlex">
+            <div className="block">
+              <p>Usuario</p>
+              <input
+                type="text"
+                name="user"
+                value={name.user}
+                onChange={onChangeName}
+                maxLength={80}
+              />
+            </div>
+            <div className="block">
+              <p>Contraseña</p>
+              <input
+                type="password"
+                value={name.password}
+                name="password"
+                onChange={onChangeName}
+                required={true}
+              />
+            </div>
+            </div>
             <button onClick={onSubmitName}>Cambiar</button>
           </form>
         </div>
         <div className="categories">
-          <h2>Categorías</h2>
+          <h2 className="blogSubTitle">Categorías</h2>
           {categories.map((element, index) => (
             <div className="category" key={element.categoria_id}>
               <CategoryElement {...element} index={index} id={id} />
@@ -137,7 +142,7 @@ export const Settings = () => {
             onClick={() => setAddCategory(!addCategory)}
             className={addCategory ? "cancel" : "add"}
           >
-            {addCategory ? "cancelar" : "añadir"}
+            {addCategory ? "cancelar" : "añadir categoría"}
           </button>
         </div>
       </div>

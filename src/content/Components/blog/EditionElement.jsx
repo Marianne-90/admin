@@ -1,22 +1,6 @@
-import { useRef, useContext, useState, useEffect } from "react";
+import { useRef, useContext} from "react";
 import JoditEditor from "jodit-react";
 import { BlogContext } from "../../../context/blogContext/BlogContext";
-import { MainContext } from "../../../context/MainContext";
-import { useNavigate } from "react-router-dom";
-import { RoutesDictionary } from "./RoutesDictionary";
-import DOMPurify from "dompurify";
-import Swal from "sweetalert2";
-
-
-
-
-
-
-
-
-
-
-
 
 
 export const EditionElement = () => {
@@ -32,50 +16,11 @@ export const EditionElement = () => {
       meta,
       setMeta,
       setImagen,
-      imagen,
       previewImage,
       setPreviewImage,
       categories,
-      setCategories,
-      loading,
-      setLoading,
       name, 
-      setName
     } = useContext(BlogContext);
-
-    const { mainUrl, usuario, id } = useContext(MainContext);
-    const getName = async () => {
-        return fetch(`${mainUrl}blog/name/${usuario}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setName(data.message);
-          })
-          .catch((error) => console.error(error));
-      };
-    
-      const getCategories = async () => {
-        return fetch(`${mainUrl}blog/categories`)
-          .then((response) => response.json())
-          .then((data) => {
-            setCategories(data);
-          })
-          .catch((error) => console.error(error));
-      };
-    
-      useEffect(() => {
-        const fetchData = async () => {
-          setLoading(true);
-          try {
-            await Promise.all([getCategories(), getName()]);
-            setLoading(false);
-          } catch (error) {
-            console.error(error);
-            setLoading(false);
-          }
-        };
-    
-        fetchData();
-      }, []);
 
       const handleCategoryChange = (event) => {
         let id = Number(event.target.value);

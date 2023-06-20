@@ -47,25 +47,31 @@ export const AddCategory = () => {
 
   return (
     <section className="addCategory">
-      <h2>Añadir nueva</h2>
+      <h2 className="blogSubTitle">Añadir nueva</h2>
       <form action="POST" onSubmit={handleSubmit}>
-        <p>Categoría</p>
-        <input
-          type="text"
-          className="nombre"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          maxLength={60}
-        />
-        <p>Descripción</p>
-        <textarea
-          type="text"
-          className="categoria_descripcion"
-          name="categoria_descripcion"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          maxLength={400}
-        />
+        <div className="inputContainer">
+          <div>
+            <p>Categoría</p>
+            <input
+              type="text"
+              className="nombre"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              maxLength={60}
+            />
+          </div>
+          <div>
+            <p>Descripción</p>
+            <textarea
+              type="text"
+              className="categoria_descripcion"
+              name="categoria_descripcion"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              maxLength={400}
+            />
+          </div>
+        </div>
         <button type="submit">Guardar</button>
       </form>
     </section>

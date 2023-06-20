@@ -13,7 +13,6 @@ export const CategoryElement = ({
   const { categories, setCategories, setLoading } = useContext(BlogContext);
   const { mainUrl } = useContext(MainContext);
 
-
   const getCategories = async () => {
     return fetch(`${mainUrl}blog/categories`)
       .then((response) => response.json())
@@ -98,30 +97,38 @@ export const CategoryElement = ({
         console.log("Ha ocurrido un error:", error);
         setLoading(false);
       }
-    }else{setLoading(false);}
+    } else {
+      setLoading(false);
+    }
   };
 
   return (
     <form action="POST" onSubmit={handleSubmit}>
-      <p>Categoría</p>
-      <input
-        type="text"
-        className="nombre"
-        name="categoria_nombre"
-        value={categoria_nombre}
-        onChange={(e) => onChangeCategory(e, index)}
-        maxLength={60}
-      />
-      <p>Descripción</p>
-      <textarea
-        type="text"
-        className="categoria_descripcion"
-        name="categoria_descripcion"
-        value={categoria_descripcion}
-        onChange={(e) => onChangeCategory(e, index)}
-        maxLength={400}
-      />
-      <button onClick={handleOnDelete}>Eliminar</button>
+      <div className="inputContainer">
+        <div>
+          <p>Categoría</p>
+          <input
+            type="text"
+            className="nombre"
+            name="categoria_nombre"
+            value={categoria_nombre}
+            onChange={(e) => onChangeCategory(e, index)}
+            maxLength={60}
+          />
+        </div>
+        <div>
+          <p>Descripción</p>
+          <textarea
+            type="text"
+            className="categoria_descripcion"
+            name="categoria_descripcion"
+            value={categoria_descripcion}
+            onChange={(e) => onChangeCategory(e, index)}
+            maxLength={400}
+          />
+        </div>
+      </div>
+      <button onClick={handleOnDelete} className="cancel">Eliminar</button>
       <button type="submit">Guardar</button>
     </form>
   );
