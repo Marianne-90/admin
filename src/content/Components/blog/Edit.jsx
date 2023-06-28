@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BlogContext } from "../../../context/blogContext/BlogContext";
 import { MainContext } from "../../../context/MainContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -34,7 +34,9 @@ export const Edit = () => {
     setPageBlock,
   } = useContext(BlogContext);
 
-  const { mainUrl, id: userID, usuario } = useContext(MainContext);
+  const { mainUrl, id: userID } = useContext(MainContext);
+
+  const [comments, setComments] = useState(0);
 
   const cleanBlog = () => {
     if (pageBlock != "edit") {
@@ -53,6 +55,7 @@ export const Edit = () => {
         setCategory(data.categoria_id);
         setMeta(data.meta);
         setName(data.autor);
+        setComments(data.comentarios)
         if (data.imagen.length > 0) {
           setPreviewImage(`${mainUrl}img/${data.imagen}`);
         }
@@ -182,6 +185,10 @@ export const Edit = () => {
 
   };
 
+  const handleComments = () => {
+    navigate(`/blog/comments?id=${id}`);
+  };
+
   if (loading) {
     return (
       <div className="loaderContent">
@@ -209,8 +216,12 @@ export const Edit = () => {
           </button>
         </div>
       </div>
-      <h1 className="blogTitle">Crear Nueva Entrada</h1>
+      <h1 className="blogTitle">Editar Blog</h1>
       <EditionElement />
+      <div id="adminComments">
+
+      <button onClick={handleComments}> Administrar {comments} comentarios</button>
+      </div>
     </section>
   );
 };

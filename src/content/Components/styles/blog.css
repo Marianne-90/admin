@@ -123,7 +123,7 @@
   gap: 5px;
 }
 
-.MainBlog .blogSubNavbar {
+.blogSubNavbar {
   margin-top: 35px;
   display: flex;
   justify-content: space-between;
@@ -131,7 +131,7 @@
   padding: 5px;
 }
 
-.MainBlog .blogSubNavbar .buttons button {
+.blogSubNavbar .buttons button {
   margin-left: 10px;
   border: none;
   background-color: #7e4d12;
@@ -144,44 +144,46 @@
   font-size: 0.7rem;
 }
 
-.MainBlog .blogSubNavbar .buttons button:hover {
+ .blogSubNavbar .buttons button:hover {
   background-color: #97601b;
 }
 
-.MainBlog .blogSubNavbar .buttons .VP,
-.MainBlog .blogSubNavbar .buttons .edit {
+ .blogSubNavbar .buttons .VP,
+ .blogSubNavbar .buttons .edit,  
+ .blogSubNavbar .buttons #descargarComment {
   background-color: #3c7c9c;
 }
 
-.MainBlog .blogSubNavbar .buttons .VP:hover,
-.MainBlog .blogSubNavbar .buttons .edit:hover {
+.blogSubNavbar .buttons .VP:hover,
+ .blogSubNavbar .buttons .edit:hover,
+ .blogSubNavbar .buttons #descargarComment:hover {
   background-color: #5da2c5;
 }
 
-.MainBlog .blogSubNavbar .buttons .save {
+ .blogSubNavbar .buttons .save {
   background-color: #35983a;
 }
 
-.MainBlog .blogSubNavbar .buttons .save:hover {
+ .blogSubNavbar .buttons .save:hover {
   background-color: #47b74d;
 }
-.MainBlog .blogSubNavbar .buttons .borrador {
+ .blogSubNavbar .buttons .borrador {
   background-color: #868686;
 }
 
-.MainBlog .blogSubNavbar .buttons .borrador:hover {
+ .blogSubNavbar .buttons .borrador:hover {
   background-color: #c9c9c9;
 }
 
-.MainBlog .blogSubNavbar .buttons .cancel {
+ .blogSubNavbar .buttons .cancel {
   background-color: #9a4242;
 }
 
-.MainBlog .blogSubNavbar .buttons .cancel:hover {
+.blogSubNavbar .buttons .cancel:hover {
   background-color: #c16363;
 }
 
-.MainBlog .mainImage {
+.mainImage {
   width: 100%;
   height: 200px;
   display: flex;
@@ -491,14 +493,14 @@
   margin: 35px 0;
 }
 
-.MainBlog .main nav{
+.MainBlog .main nav, .blogSubNavbar nav{
   border-bottom: #e3e3e3 1px solid;
   padding: 4px 15px;
   display: flex;
   gap: 7px;
 }
 
-.MainBlog .main nav p{
+.MainBlog .main nav p, .blogSubNavbar nav p{
   margin:0; 
   cursor: pointer;
   text-align: center;
@@ -509,7 +511,7 @@
   color: #585858;
 }
 
-.MainBlog .main nav a {
+.MainBlog .main nav a, .blogSubNavbar nav a {
   cursor: pointer;
   padding-right: 7px;
   border-right: #e3e3e3 1px solid;
@@ -521,7 +523,7 @@
   color: #585858;
 }
 
-.MainBlog .main nav a:hover{
+.MainBlog .main nav a:hover, .blogSubNavbar nav a:hover{
   text-decoration: underline;
 }
 
@@ -645,3 +647,26 @@
 .margintop50px{
   margin-top: 50px!important;
 }
+
+#adminComments{
+display: flex;
+justify-content: center;
+margin-bottom: 30px;
+}
+
+#adminComments button{
+  border: none;
+  background-color: #3c7c9c;
+  padding: 5px 50px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+#adminComments button:hover{
+  background-color: #5da2c5;
+}
+
