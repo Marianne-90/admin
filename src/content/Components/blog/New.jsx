@@ -1,4 +1,4 @@
-import { useContext, useEffect} from "react";
+import { useContext, useEffect } from "react";
 import { BlogContext } from "../../../context/blogContext/BlogContext";
 import { MainContext } from "../../../context/MainContext";
 import { useNavigate } from "react-router-dom";
@@ -25,11 +25,24 @@ export const New = () => {
     loading,
     setLoading,
     setName,
-    setCategories
-
+    setCategories,
+    pageBlock,
+    setPageBlock,
   } = useContext(BlogContext);
 
   const { mainUrl, id, usuario } = useContext(MainContext);
+
+  const cleanBlog = () => {
+    if (pageBlock != "new") {
+      setPageBlock("new");
+      setContent("");
+      setTitle("");
+      setCategory("");
+      setMeta("");
+      setImagen(null);
+      setPreviewImage(null);
+    }
+  };
 
   const getName = async () => {
     return fetch(`${mainUrl}blog/name/${usuario}`)
@@ -51,7 +64,6 @@ export const New = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
         await Promise.all([getCategories(), getName()]);
         setLoading(false);
@@ -60,7 +72,7 @@ export const New = () => {
         setLoading(false);
       }
     };
-
+    cleanBlog();
     fetchData();
   }, []);
 
@@ -142,10 +154,10 @@ export const New = () => {
           <button onClick={() => navigate("/blog/prev")} className="VP">
             Vista Previa
           </button>
-          <button className="save" onClick={() => handleSave("active")}>
+          <button className="save" onClick={() => handleSave("activo")}>
             Publicar
           </button>
-          <button className="borrador" onClick={() => handleSave("inactive")}>
+          <button className="borrador" onClick={() => handleSave("inactivo")}>
             Guardar Borrador
           </button>
           <button className="cancel" onClick={handleDeleteBlog}>

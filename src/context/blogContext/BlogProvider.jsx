@@ -11,6 +11,8 @@ export const BlogProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
+  const [blogList, setBlogList] = useState([]);
+  const [pageBlock, setPageBlock] = useState("");
 
   return (
     <BlogContext.Provider
@@ -31,8 +33,12 @@ export const BlogProvider = ({ children }) => {
         setLoading,
         category,
         setCategory,
-        name, 
-        setName
+        name,
+        setName,
+        blogList,
+        setBlogList,
+        pageBlock,
+        setPageBlock,
       }}
     >
       {children}

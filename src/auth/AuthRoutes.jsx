@@ -5,9 +5,10 @@ import { Recover } from "./Recover";
 export const AuthRoutes = () => {
   return (
     <Routes>
+      <Route path="/" element={<Auth />} />
       <Route path="login" element={<Auth />} />
       <Route path="recover" element={<Recover />} />
-      <Route path="/*" element={<Navigate to="/auth/login" />} />
+      <Route path="/*" element={<Navigate to="/login" />} />
     </Routes>
   );
 };

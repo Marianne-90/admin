@@ -14,7 +14,7 @@ export const ContentRoutes = () => {
       <Route path="blog/*" element={<Blog />} />
       <Route path="page" element={<PageSettings />} />
       <Route path="user" element={<UserSettings />} />
-      <Route path="/*" element={<Navigate to="/home" />} />
+      <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
     </section>
     </div>

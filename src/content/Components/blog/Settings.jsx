@@ -100,32 +100,32 @@ export const Settings = () => {
         <RoutesDictionary routes="blog ajustes-del-blog" />
         <div className="buttons">.</div>
       </div>
-      <div className="content">
         <h1 className="blogTitle">Ajustes del Blog</h1>
+      <div className="content">
         <div className="userName">
           <h2 className="blogSubTitle">Cambiar nombre de público</h2>
           <form action="POST">
             <div className="inputContainerFlex">
-            <div className="block">
-              <p>Usuario</p>
-              <input
-                type="text"
-                name="user"
-                value={name.user}
-                onChange={onChangeName}
-                maxLength={80}
-              />
-            </div>
-            <div className="block">
-              <p>Contraseña</p>
-              <input
-                type="password"
-                value={name.password}
-                name="password"
-                onChange={onChangeName}
-                required={true}
-              />
-            </div>
+              <div className="block">
+                <p>Usuario</p>
+                <input
+                  type="text"
+                  name="user"
+                  value={name.user}
+                  onChange={onChangeName}
+                  maxLength={80}
+                />
+              </div>
+              <div className="block">
+                <p>Contraseña</p>
+                <input
+                  type="password"
+                  value={name.password}
+                  name="password"
+                  onChange={onChangeName}
+                  required={true}
+                />
+              </div>
             </div>
             <button onClick={onSubmitName}>Cambiar</button>
           </form>

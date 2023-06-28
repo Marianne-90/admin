@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthRoutes } from "../auth/AuthRoutes";
 import { useContext } from "react";
-import { MainContext } from "../Context/MainContext";
+import { MainContext } from "../context/MainContext";
 import { ContentRoutes } from "../content/routes/ContentRoutes"
 import { PLoading } from "../content/PLoading";
 
@@ -12,9 +12,9 @@ export const AppRouter = () => {
     <Routes>
       {
       auth ? <Route path="/*" element={loading? <PLoading/>:<ContentRoutes />}/>
-      : <Route path='/auth/*' element={loading? <PLoading/>:<AuthRoutes />} />
+      : <Route path='/*' element={loading? <PLoading/>:<AuthRoutes />} />
       }
-      <Route path='/*' element={<Navigate to='/auth/login' />} />
+      <Route path='/*' element={<Navigate to='/' />} />
     </Routes>
   );
 };

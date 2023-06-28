@@ -19,7 +19,8 @@ export const BlogNavBar = () => {
 
   const handleOnSearch = (e) => {
     e.preventDefault();
-    console.log("handleOnSearch");
+    setSearch("");
+    navigate(`/blog/main?search=${search}`);
   };
 
   const handleOnChange = (e) => {
@@ -46,7 +47,7 @@ export const BlogNavBar = () => {
                 id="search"
                 type="text"
               />
-              <button type="submit" className="icon">
+              <button type="submit" className="icon" onClick={handleOnSearch}>
                 <svg
                   strokeWidth="2"
                   stroke="currentColor"

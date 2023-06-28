@@ -8,6 +8,7 @@
   position: fixed;
   width: calc(100vw - 110px);
   top: 40px;
+  z-index: 9999;
 }
 
 .MainBlog .BlogNavBar .routes a {
@@ -422,13 +423,15 @@
 .MainBlog .blogSettings h2 {
   margin: 10px 0;
 }
-.MainBlog .blogSettings p {
+.MainBlog .blogSettings .content p {
   font-size: 0.9rem;
   margin: 0;
   padding: 0;
   font-weight: 600;
   color: #585858;
 }
+
+
 
 .MainBlog .blogSettings .category {
   background-color: #efeff0;
@@ -482,4 +485,163 @@
 .MainBlog .blogSettings .addCategory .inputContainer{
   display: flex;
   gap: 30px;
+}
+
+.MainBlog .main{
+  margin: 35px 0;
+}
+
+.MainBlog .main nav{
+  border-bottom: #e3e3e3 1px solid;
+  padding: 4px 15px;
+  display: flex;
+  gap: 7px;
+}
+
+.MainBlog .main nav p{
+  margin:0; 
+  cursor: pointer;
+  text-align: center;
+  cursor: pointer;
+  font-size: .70rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #585858;
+}
+
+.MainBlog .main nav a {
+  cursor: pointer;
+  padding-right: 7px;
+  border-right: #e3e3e3 1px solid;
+  text-align: center;
+  cursor: pointer;
+  font-size: .70rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #585858;
+}
+
+.MainBlog .main nav a:hover{
+  text-decoration: underline;
+}
+
+.MainBlog .main h1 small {
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.MainBlog .main h3{
+  margin-top: 10px!important;
+}
+
+.MainBlog .main .blogsContainer .blogElement {
+  background: #F5F5F5 ;
+  border-radius: 1px;
+  padding: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  color:#00000099;
+  border: #e3e3e3 1px solid;
+}
+
+.MainBlog .main .blogsContainer .blogElement:hover{
+  background: #dfdfdf ;
+}
+
+.MainBlog .main .blogsContainer .blogElement:nth-child(odd){
+  background: #ffffff
+}
+.MainBlog .main .blogsContainer .blogElement:nth-child(odd):hover{
+  background: #dfdfdf ;
+}
+
+.MainBlog .main .blogsContainer .blogElement p{
+  margin: 0;
+  font-size: .9rem;
+}
+
+.MainBlog .main .blogsContainer .blogElement .activo{
+  background-color: #35983a;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.MainBlog .main .blogsContainer .blogElement .inactivo{
+  background-color: #ce5050;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.MainBlog .main .blogsContainer .blogElement .block{
+  display: flex;
+  justify-content: space-between;
+  border-bottom:#0000001d 1px solid;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+
+.MainBlog .main .blogsContainer .blogElement .fecha{
+  font-weight: 700;
+}
+
+
+
+.MainBlog .main .blogsContainer .blogElement .titulo{
+ text-transform: uppercase;
+ font-weight: 600;
+ border-bottom:#0000001d 1px solid;
+ padding-bottom: 10px;
+ margin-bottom: 10px;
+}
+
+.MainBlog .main .blogsContainer .blogElement .prev{
+  border-bottom:#0000001d 1px solid;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.MainBlog .main .blogsContainer .blogElement .coments > * {
+  display: inline;
+  font-weight: 600;
+}
+
+.MainBlog .main .blogsContainer .blogElement .coments button{
+  margin-left: 10px;
+  border: none;
+  background-color: #35983a;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.MainBlog .main .blogsContainer .blogElement .coments button:hover {
+  background-color: #47b74d;
+}
+
+.margintop50px{
+  margin-top: 50px!important;
 }
