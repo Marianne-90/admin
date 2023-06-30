@@ -32,11 +32,13 @@ export const Edit = () => {
     setCategories,
     pageBlock,
     setPageBlock,
+    comments, 
+    setComments,
+    date, 
+    setDate
   } = useContext(BlogContext);
 
   const { mainUrl, id: userID } = useContext(MainContext);
-
-  const [comments, setComments] = useState(0);
 
   const cleanBlog = () => {
     if (pageBlock != "edit") {
@@ -55,7 +57,8 @@ export const Edit = () => {
         setCategory(data.categoria_id);
         setMeta(data.meta);
         setName(data.autor);
-        setComments(data.comentarios)
+        setDate(data.fecha);
+        setComments(data.comentarios);
         if (data.imagen.length > 0) {
           setPreviewImage(`${mainUrl}img/${data.imagen}`);
         }
@@ -84,10 +87,11 @@ export const Edit = () => {
       }
     };
 
-    if(load != "true"){
+    if (load != "true") {
       cleanBlog();
       fetchData();
     }
+        
   }, []);
 
   const handleSave = async (state) => {
@@ -141,7 +145,7 @@ export const Edit = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, elimiar!",
+      confirmButtonText: "Sí, eliminar!",
     }).then((result) => {
       if (result.isConfirmed) {
         confirmation = true;
@@ -170,7 +174,7 @@ export const Edit = () => {
         setMeta("");
         setImagen(null);
         setPreviewImage(null);
-  
+
         navigate("/blog/main");
 
         setLoading(false);
@@ -182,7 +186,6 @@ export const Edit = () => {
     } else {
       setLoading(false);
     }
-
   };
 
   const handleComments = () => {
@@ -202,7 +205,10 @@ export const Edit = () => {
       <div className="blogSubNavbar">
         <RoutesDictionary routes="Página-Principal blogs editar" />
         <div className="buttons">
-          <button onClick={() => navigate(`/blog/prev?id=${id}`)} className="VP">
+          <button
+            onClick={() => navigate(`/blog/prev?id=${id}&edition=true`)}
+            className="VP"
+          >
             Vista Previa
           </button>
           <button className="save" onClick={() => handleSave("activo")}>
@@ -219,8 +225,10 @@ export const Edit = () => {
       <h1 className="blogTitle">Editar Blog</h1>
       <EditionElement />
       <div id="adminComments">
-
-      <button onClick={handleComments}> Administrar {comments} comentarios</button>
+        <button onClick={handleComments}>
+          {" "}
+          Administrar {comments} comentarios
+        </button>
       </div>
     </section>
   );

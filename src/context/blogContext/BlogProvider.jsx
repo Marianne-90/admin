@@ -13,6 +13,10 @@ export const BlogProvider = ({ children }) => {
   const [name, setName] = useState("");
   const [blogList, setBlogList] = useState([]);
   const [pageBlock, setPageBlock] = useState("");
+  const [comentsList, setComentsList] = useState([]);
+  const [comments, setComments] = useState(0);
+  const [date, setDate] = useState("");
+
 
   return (
     <BlogContext.Provider
@@ -39,6 +43,12 @@ export const BlogProvider = ({ children }) => {
         setBlogList,
         pageBlock,
         setPageBlock,
+        comentsList, 
+        setComentsList,
+        comments, 
+        setComments,
+        date, 
+        setDate
       }}
     >
       {children}

@@ -1,54 +1,63 @@
-import { useRef, useContext, useMemo} from "react";
+import { useContext, useMemo, useCallback } from "react";
 import JoditEditor from "jodit-react";
 import { BlogContext } from "../../../context/blogContext/BlogContext";
 
-
 export const EditionElement = () => {
+  const {
+    content,
+    setContent,
+    title,
+    setTitle,
+    category,
+    setCategory,
+    meta,
+    setMeta,
+    setImagen,
+    previewImage,
+    setPreviewImage,
+    categories,
+    name,
+    date,
+  } = useContext(BlogContext);
 
-    const editor = useRef(null);
-    const {
-      content,
-      setContent,
-      title,
-      setTitle,
-      category,
-      setCategory,
-      meta,
-      setMeta,
-      setImagen,
-      previewImage,
-      setPreviewImage,
-      categories,
-      name, 
-    } = useContext(BlogContext);
+  const config = useMemo(
+    () => ({
+      readonly: false,
+    }),
+    []
+  );
 
-      const handleCategoryChange = (event) => {
-        let id = Number(event.target.value);
-        setCategory(id);
+  const handleCategoryChange = (event) => {
+    let id = Number(event.target.value);
+    setCategory(id);
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImagen(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
       };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage(null);
+    }
+  };
 
+  const handleDeleteImage = () => {
+    setImagen(null);
+    setPreviewImage(null);
+  };
 
-      const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setImagen(file);
-    
-        if (file) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setPreviewImage(reader.result);
-          };
-          reader.readAsDataURL(file);
-        } else {
-          setPreviewImage(null);
-        }
-      };
-    
-      const handleDeleteImage = () => {
-        setImagen(null);
-        setPreviewImage(null);
-      };
-
-
+  const onBlur = useCallback(
+    (newContent) => {
+      setContent(newContent);
+    },
+    [setContent]
+  );
 
   return (
     <div className="content">
@@ -61,7 +70,7 @@ export const EditionElement = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
           <p>
-            <small> por: {name} </small>
+            <small> por: <u>{name}</u> <br/> última actualización <u> {date} </u></small>
           </p>
         </form>
       </div>
@@ -129,9 +138,10 @@ export const EditionElement = () => {
       </div>
       <div className="editor">
         <JoditEditor
-          ref={editor}
           value={content}
-          onChange={(newContent) => setContent(newContent)}
+          config={config}
+          tabIndex={1}
+          onBlur={onBlur}
         />
       </div>
     </div>

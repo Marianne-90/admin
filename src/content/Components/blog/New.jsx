@@ -28,6 +28,7 @@ export const New = () => {
     setCategories,
     pageBlock,
     setPageBlock,
+    setDate
   } = useContext(BlogContext);
 
   const { mainUrl, id, usuario } = useContext(MainContext);
@@ -66,6 +67,11 @@ export const New = () => {
     const fetchData = async () => {
       try {
         await Promise.all([getCategories(), getName()]);
+
+        const date = new Date();
+        const formattedDate = date.toISOString().split('T')[0];
+        setDate(formattedDate);
+
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -102,7 +108,7 @@ export const New = () => {
       setLoading(false);
       setContent("");
       setTitle("");
-      setCategory([]);
+      setCategory("");
       setMeta("");
       setImagen(null);
       setPreviewImage(null);
@@ -123,7 +129,7 @@ export const New = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, elimiar!",
+      confirmButtonText: "Sí, eliminar!",
     }).then((result) => {
       if (result.isConfirmed) {
         setContent("");
