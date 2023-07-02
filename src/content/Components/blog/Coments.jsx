@@ -4,6 +4,9 @@ import { MainContext } from "../../../context/MainContext";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { CommentElement } from "./CommentElement";
+import * as XLSX from 'xlsx';
+import { Excel } from "./Excel";
+
 
 export const Coments = () => {
   const [navDir, setNavDir] = useState("blog comentarios");
@@ -82,12 +85,53 @@ export const Coments = () => {
     );
   }
 
+
+
+    const handleDownload = () => {
+      // Datos de ejemplo
+      const data = [
+        ['Nombre', 'Apellido', 'Edad'],
+        ['John', 'Doe', 25],
+        ['Jane', 'Smith', 30],
+        ['Bob', 'Johnson', 35]
+      ];
+  
+      // Crear un libro de trabajo
+      const workbook = XLSX.utils.book_new();
+  
+      // Crear una hoja de cálculo
+      const worksheet = XLSX.utils.aoa_to_sheet(data);
+  
+      // Agregar la hoja de cálculo al libro de trabajo
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Comentarios');
+  
+      // Convertir el libro de trabajo a un archivo de Excel
+      const excelBuffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+  
+      // Descargar el archivo
+      const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const fileName = 'comentarios.xlsx';
+      if (typeof window.navigator.msSaveBlob !== 'undefined') {
+        // Para navegadores de Microsoft
+        window.navigator.msSaveBlob(blob, fileName);
+      } else {
+        // Para otros navegadores
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
+        window.URL.revokeObjectURL(url);
+      }
+    };
+
+
   return (
     <section className="comments">
       <div className="blogSubNavbar">
         <RoutesDictionary routes={navDir} />
         <div className="buttons">
-          <button id="descargarComment">Descargar CSV</button>
+          <button id="descargarComment" onClick={handleDownload}>Descargar Excel</button>
         </div>
         <nav>
           <p>ordenar por:</p>
@@ -102,7 +146,7 @@ export const Coments = () => {
           </a>
         </nav>
       </div>
-
+<Excel coments={[...comentsList]}/>
       <h1 className="blogTitle">Listado de Comentarios</h1>
 
       <div className="content">
