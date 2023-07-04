@@ -131,7 +131,8 @@ export const Coments = () => {
       <div className="blogSubNavbar">
         <RoutesDictionary routes={navDir} />
         <div className="buttons">
-          <button id="descargarComment" onClick={handleDownload}>Descargar Excel</button>
+        <Excel download={[...comentsList]}/>
+
         </div>
         <nav>
           <p>ordenar por:</p>
@@ -146,7 +147,7 @@ export const Coments = () => {
           </a>
         </nav>
       </div>
-<Excel coments={[...comentsList]}/>
+
       <h1 className="blogTitle">Listado de Comentarios</h1>
 
       <div className="content">

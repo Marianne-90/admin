@@ -83,7 +83,7 @@ export const Auth = () => {
           >
             Entrar
           </button>
-          <a onClick={() => navigate("/auth/recover")}>olvidé mi contraseña</a>
+          <a onClick={() => navigate("/recover")}>olvidé mi contraseña</a>
         </form>
       </div>
     </div>

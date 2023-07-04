@@ -12,7 +12,7 @@ export const Recover = () => {
           <span>Correo</span>
         </label>
         <button type="submit">Enviar correo</button>
-        <a onClick={() => navigate("/auth/login")}>Ingresar</a>
+        <a onClick={() => navigate("/login")}>Ingresar</a>
       </form>
     </section>
   );
