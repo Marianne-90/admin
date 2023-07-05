@@ -278,6 +278,13 @@
   padding: 0 30px;
 }
 
+.MainBlog .content .editor .blogSubTitle{
+  font-weight: 400;
+  margin: 10px 0;
+}
+
+
+
 .MainBlog .newBlog .content {
   border: #cacaca 1px solid;
   margin: 20px 30px;

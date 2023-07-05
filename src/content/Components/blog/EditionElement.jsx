@@ -3,22 +3,7 @@ import JoditEditor from "jodit-react";
 import { BlogContext } from "../../../context/blogContext/BlogContext";
 
 export const EditionElement = () => {
-  const {
-    content,
-    setContent,
-    title,
-    setTitle,
-    category,
-    setCategory,
-    meta,
-    setMeta,
-    setImagen,
-    previewImage,
-    setPreviewImage,
-    categories,
-    name,
-    date,
-  } = useContext(BlogContext);
+  const { blogElements, setBlogElements, categories } = useContext(BlogContext);
 
   const config = useMemo(
     () => ({
@@ -29,57 +14,97 @@ export const EditionElement = () => {
 
   const handleCategoryChange = (event) => {
     let id = Number(event.target.value);
-    setCategory(id);
+
+    let obj = { ...blogElements };
+    obj["category"] = id;
+    setBlogElements(obj);
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImagen(file);
+    let obj = { ...blogElements };
+    obj["imagen"] = file;
 
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result);
+        obj["previewImage"] = reader.result;
+        setBlogElements(obj);
       };
       reader.readAsDataURL(file);
     } else {
-      setPreviewImage(null);
+      obj["previewImage"] = null;
+      setBlogElements(obj);
     }
   };
 
   const handleDeleteImage = () => {
-    setImagen(null);
-    setPreviewImage(null);
+    let obj = { ...blogElements };
+    obj["previewImage"] = null;
+    obj["imagen"] = null;
+    setBlogElements(obj);
   };
 
-  const onBlur = useCallback(
+  const onBlurEsp = useCallback(
     (newContent) => {
-      setContent(newContent);
+      let obj = { ...blogElements };
+      obj["content"] = newContent;
+      setBlogElements(obj);
     },
-    [setContent]
+    [blogElements["content"]]
   );
+
+  const onBlurEng = useCallback(
+    (newContent) => {
+      let obj = { ...blogElements };
+      obj["content_eng"] = newContent;
+      setBlogElements(obj);
+    },
+    [blogElements["content_eng"]]
+  );
+
+  const handleOnChange = (e) => {
+    let value = e.target.value;
+    let key = e.target.id;
+
+    let obj = { ...blogElements };
+    obj[key] = value;
+    setBlogElements(obj);
+  };
 
   return (
     <div className="content">
       <div className="mainTitle">
-        <form>
-          <p>Título:</p>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <p>Título En Español:</p>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            id="title"
+            value={blogElements["title"]}
+            onChange={handleOnChange}
+          />
+          <p>Título En Inglés:</p>
+          <input
+            type="text"
+            id="title_eng"
+            value={blogElements["title_eng"]}
+            onChange={handleOnChange}
           />
           <p>
-            <small> por: <u>{name}</u> <br/> última actualización <u> {date} </u></small>
+            <small>
+              {" "}
+              por: <u>{blogElements["autor"]}</u> <br /> última actualización{" "}
+              <u> {blogElements["date"]} </u>
+            </small>
           </p>
         </form>
       </div>
       <div className="ajustes">
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="category">Categoría:</label>
           <select
             id="category"
-            value={category}
+            value={blogElements["category"]}
             onChange={handleCategoryChange}
           >
             <option value="">Sin categoría</option>
@@ -92,16 +117,16 @@ export const EditionElement = () => {
           <label htmlFor="meta">Palabras clave o descripción (metadatos)</label>
           <textarea
             id="meta"
-            value={meta}
-            onChange={(e) => setMeta(e.target.value)}
+            value={blogElements["meta"]}
+            onChange={handleOnChange}
           />
         </form>
       </div>
 
       <div className="mainImage">
-        {previewImage ? (
+        {blogElements["previewImage"] ? (
           <div className="container">
-            <img src={previewImage} alt="Preview" />
+            <img src={blogElements["previewImage"]} alt="Preview" />
             <button onClick={handleDeleteImage}>Eliminar</button>
           </div>
         ) : (
@@ -137,11 +162,21 @@ export const EditionElement = () => {
         )}
       </div>
       <div className="editor">
+        <h2 className="blogSubTitle"> contenido en español:</h2>
         <JoditEditor
-          value={content}
+          value={blogElements["content"]}
           config={config}
           tabIndex={1}
-          onBlur={onBlur}
+          onBlur={onBlurEsp}
+        />
+      </div>
+      <div className="editor">
+        <h2 className="blogSubTitle"> contenido en Inglés:</h2>
+        <JoditEditor
+          value={blogElements["content_eng"]}
+          config={config}
+          tabIndex={1}
+          onBlur={onBlurEng}
         />
       </div>
     </div>

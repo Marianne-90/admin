@@ -11,24 +11,14 @@ export const New = () => {
   const navigate = useNavigate();
 
   const {
-    content,
-    setContent,
-    title,
-    setTitle,
-    category,
-    setCategory,
-    meta,
-    setMeta,
-    setImagen,
-    imagen,
-    setPreviewImage,
+    blogElements,
+    setBlogElements,
+
     loading,
     setLoading,
-    setName,
     setCategories,
     pageBlock,
     setPageBlock,
-    setDate
   } = useContext(BlogContext);
 
   const { mainUrl, id, usuario } = useContext(MainContext);
@@ -36,22 +26,29 @@ export const New = () => {
   const cleanBlog = () => {
     if (pageBlock != "new") {
       setPageBlock("new");
-      setContent("");
-      setTitle("");
-      setCategory("");
-      setMeta("");
-      setImagen(null);
-      setPreviewImage(null);
+
+      let clean = { ...blogElements };
+
+      clean["imagen"] = null;
+      clean["previewImage"] = null;
+      clean["content"] = "";
+      clean["title"] = "";
+      clean["category"] = "";
+      clean["meta"] = "";
+      return clean;
     }
+    return blogElements;
   };
 
   const getName = async () => {
-    return fetch(`${mainUrl}blog/name/${usuario}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setName(data.message);
-      })
-      .catch((error) => console.error(error));
+    try {
+      const response = await fetch(`${mainUrl}blog/name/${usuario}`);
+      const data = await response.json();
+      return { autor: data.message };
+    } catch (error) {
+      console.error(error);
+      return { autor: "" };
+    }
   };
 
   const getCategories = async () => {
@@ -63,14 +60,28 @@ export const New = () => {
       .catch((error) => console.error(error));
   };
 
+
+  //*! esto de aquí es porque como blog es un objeto hace cosas raras y no se actualiza el use state a tiempo
+
+  const setBlog = async () => {
+    const date = new Date();
+    const formattedDate = date.toISOString().split("T")[0];
+
+    let data = await cleanBlog();
+    let name = await getName();
+
+    let obj = { ...data, ...name, date: formattedDate };
+
+    setBlogElements(obj);
+  };
+
+
   useEffect(() => {
+    setLoading(true);
+
     const fetchData = async () => {
       try {
-        await Promise.all([getCategories(), getName()]);
-
-        const date = new Date();
-        const formattedDate = date.toISOString().split('T')[0];
-        setDate(formattedDate);
+        await Promise.all([getCategories(), setBlog()]);
 
         setLoading(false);
       } catch (error) {
@@ -78,23 +89,23 @@ export const New = () => {
         setLoading(false);
       }
     };
-    cleanBlog();
+
     fetchData();
   }, []);
 
-  const handleSave = async (state) => {
-    const cleanedContent = DOMPurify.sanitize(content);
-    setContent(cleanedContent);
 
+  const handleSave = async (state) => {
+    const cleanedContent = DOMPurify.sanitize(blogElements.content);
     setLoading(true);
+
     const formData = new FormData();
     formData.append("usuario_id", id);
-    formData.append("categoria_id", category);
-    formData.append("titlulo", title);
-    formData.append("metadatos", meta);
+    formData.append("categoria_id", blogElements.category);
+    formData.append("titlulo", blogElements.title);
+    formData.append("metadatos", blogElements.meta);
     formData.append("estado", state);
     formData.append("content", cleanedContent);
-    formData.append("img", imagen);
+    formData.append("img", blogElements.imagen);
 
     try {
       const response = await fetch(`${mainUrl}blog/saveblog`, {
@@ -105,13 +116,19 @@ export const New = () => {
 
       const data = await response.json();
       Swal.fire("Solicitud Enviada", data.message);
+
       setLoading(false);
-      setContent("");
-      setTitle("");
-      setCategory("");
-      setMeta("");
-      setImagen(null);
-      setPreviewImage(null);
+
+      let obj = { ...blogElements };
+      obj["content"] = "";
+      obj["title"] = "";
+      obj["category"] = "";
+      obj["meta"] = "";
+      obj["date"] = "";
+      obj["previewImage"] = null;
+      obj["imagen"] = null;
+
+      setBlogElements(obj);
 
       navigate("/blog/main");
     } catch (error) {
@@ -132,12 +149,16 @@ export const New = () => {
       confirmButtonText: "Sí, eliminar!",
     }).then((result) => {
       if (result.isConfirmed) {
-        setContent("");
-        setTitle("");
-        setCategory("");
-        setMeta("");
-        setImagen(null);
-        setPreviewImage(null);
+        let obj = { ...blogElements };
+        obj["content"] = "";
+        obj["title"] = "";
+        obj["category"] = "";
+        obj["meta"] = "";
+        obj["date"] = "";
+        obj["previewImage"] = null;
+        obj["imagen"] = null;
+
+        setBlogElements(obj);
 
         Swal.fire("Eliminado!", "Tu blog se ha eliminado", "success");
       }

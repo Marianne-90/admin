@@ -9,30 +9,14 @@ export const Prev = () => {
   const { mainUrl } = useContext(MainContext);
 
   const {
-    previewImage,
-    content,
-    setContent,
-    title,
-    setTitle,
-    category,
-    setCategory,
-    meta,
-    setMeta,
-    setImagen,
-    imagen,
-    setPreviewImage,
+    blogElements,
+    setBlogElements,
     loading,
     setLoading,
-    name,
-    setName,
     setCategories,
     categories,
     pageBlock,
     setPageBlock,
-    comments,
-    setComments,
-    date, 
-    setDate
   } = useContext(BlogContext);
 
   const [categoryName, setcategoryName] = useState("");
@@ -41,30 +25,27 @@ export const Prev = () => {
 
   const location = useLocation();
   const id = new URLSearchParams(location.search).get("id");
-  const edit = new URLSearchParams(location.search).get("edit");
-
-  const cleanBlog = () => {
-    if (pageBlock != "edit") {
-      setPageBlock("edit");
-      setImagen(null);
-      setPreviewImage(null);
-    }
-  };
+  const edit = new URLSearchParams(location.search).get("edition");
 
   const getBlog = async () => {
+    let obj = { ...blogElements };
     return fetch(`${mainUrl}blog/blog/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setContent(data.contenido);
-        setTitle(data.titulo);
-        setCategory(data.categoria_id);
-        setMeta(data.meta);
-        setName(data.autor);
-        setComments(data.comentarios);
-        setDate(data.fecha);
+        obj["content"] = data.contenido;
+        obj["title"] = data.titulo;
+        obj["category"] = data.categoria_id;
+        obj["meta"] = data.meta;
+        obj["autor"] = data.autor;
+        obj["date"] = data.fecha;
+        obj["comments"] = data.comentarios;
+        obj["previewImage"] = null;
+        obj["imagen"] = null;
+
         if (data.imagen.length > 0) {
-          setPreviewImage(`${mainUrl}img/${data.imagen}`);
+          obj["previewImage"] = `${mainUrl}img/${data.imagen}`;
         }
+        setBlogElements(obj);
       })
       .catch((error) => console.error(error));
   };
@@ -80,7 +61,7 @@ export const Prev = () => {
 
   const categoryNameSelector = () => {
     categories.forEach((element) => {
-      if (element.categoria_id == category) {
+      if (element.categoria_id == blogElements.category) {
         setcategoryName(element.categoria_nombre);
       }
     });
@@ -88,6 +69,7 @@ export const Prev = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setPageBlock("edit");
       setLoading(true);
       try {
         await Promise.all([getCategories(), getBlog()]);
@@ -99,19 +81,20 @@ export const Prev = () => {
     };
 
     if (edit != "true" && id != null) {
-      cleanBlog();
       fetchData();
-    } else if (id == null){
+    } else if (id == null) {
       const date = new Date();
-      const formattedDate = date.toISOString().split('T')[0];
-      setDate(formattedDate);
+      const formattedDate = date.toISOString().split("T")[0];
+
+      let obj = { ...blogElements };
+      obj["date"] = formattedDate;
+      setBlogElements(obj);
     }
-    
   }, []);
 
   useEffect(() => {
     categoryNameSelector();
-  }, [category]);
+  }, [blogElements.category]);
 
   const handleNavigate = () => {
     if (pageBlock == "edit") {
@@ -130,17 +113,19 @@ export const Prev = () => {
         </div>
       </div>
       <div className="content">
-        <h6>{categoryName} / {date}</h6>
-        <h1>{title}</h1>
-        <h6>por: {name}</h6>
+        <h6>
+          {categoryName} / {blogElements.date}
+        </h6>
+        <h1>{blogElements.title}</h1>
+        <h6>por: {blogElements.autor}</h6>
 
-        {previewImage && (
+        {blogElements.previewImage && (
           <div className="prevImageContainer">
-            <img src={previewImage} alt={title} />{" "}
+            <img src={blogElements.previewImage} alt={blogElements.title} />{" "}
           </div>
         )}
 
-        <section className="body">{HTMLReactParser(content)}</section>
+        <section className="body">{HTMLReactParser(blogElements.content)}</section>
       </div>
     </section>
   );

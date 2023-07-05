@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 const routes = [
   { name: "Blogs", route: "blog/main" },

@@ -15,27 +15,13 @@ export const Edit = () => {
   const navigate = useNavigate();
 
   const {
-    content,
-    setContent,
-    title,
-    setTitle,
-    category,
-    setCategory,
-    meta,
-    setMeta,
-    setImagen,
-    imagen,
-    setPreviewImage,
+    blogElements,
+    setBlogElements,
     loading,
     setLoading,
-    setName,
     setCategories,
     pageBlock,
     setPageBlock,
-    comments, 
-    setComments,
-    date, 
-    setDate
   } = useContext(BlogContext);
 
   const { mainUrl, id: userID } = useContext(MainContext);
@@ -43,25 +29,35 @@ export const Edit = () => {
   const cleanBlog = () => {
     if (pageBlock != "edit") {
       setPageBlock("edit");
-      setImagen(null);
-      setPreviewImage(null);
+      let obj = { ...blogElements };
+      obj["imagen"] = null;
+      obj["previewImage"] = null;
+      return obj;
     }
+    return blogElements;
   };
 
   const getBlog = async () => {
+    let obj = await cleanBlog();
+
     return fetch(`${mainUrl}blog/blog/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setContent(data.contenido);
-        setTitle(data.titulo);
-        setCategory(data.categoria_id);
-        setMeta(data.meta);
-        setName(data.autor);
-        setDate(data.fecha);
-        setComments(data.comentarios);
+        obj["content"] = data.contenido;
+        obj["title"] = data.titulo;
+        obj["category"] = data.categoria_id;
+        obj["meta"] = data.meta;
+        obj["autor"] = data.autor;
+        obj["date"] = data.fecha;
+        obj["comments"] = data.comentarios;
+        obj["previewImage"] = null;
+        obj["imagen"] = null;
+
         if (data.imagen.length > 0) {
-          setPreviewImage(`${mainUrl}img/${data.imagen}`);
+          obj["previewImage"] = `${mainUrl}img/${data.imagen}`;
         }
+
+        setBlogElements(obj);
       })
       .catch((error) => console.error(error));
   };
@@ -88,25 +84,22 @@ export const Edit = () => {
     };
 
     if (load != "true") {
-      cleanBlog();
       fetchData();
     }
-        
   }, []);
 
   const handleSave = async (state) => {
-    const cleanedContent = DOMPurify.sanitize(content);
-    setContent(cleanedContent);
+    const cleanedContent = DOMPurify.sanitize(blogElements.content);
     setLoading(true);
     const formData = new FormData();
     formData.append("usuario_id", userID);
     formData.append("blog_id", id);
-    formData.append("categoria_id", category);
-    formData.append("titlulo", title);
-    formData.append("metadatos", meta);
+    formData.append("categoria_id", blogElements.category);
+    formData.append("titlulo", blogElements.title);
+    formData.append("metadatos", blogElements.meta);
     formData.append("estado", state);
     formData.append("content", cleanedContent);
-    formData.append("img", imagen);
+    formData.append("img", blogElements.imagen);
 
     try {
       const response = await fetch(`${mainUrl}blog/updateBlog`, {
@@ -118,12 +111,18 @@ export const Edit = () => {
       const data = await response.json();
       Swal.fire("Solicitud Enviada", data.message);
       setLoading(false);
-      setContent("");
-      setTitle("");
-      setCategory("");
-      setMeta("");
-      setImagen(null);
-      setPreviewImage(null);
+
+      let obj = { ...blogElements };
+      obj["content"] = "";
+      obj["title"] = "";
+      obj["category"] = "";
+      obj["meta"] = "";
+      obj["date"] = "";
+      obj["comments"] = 0;
+      obj["previewImage"] = null;
+      obj["imagen"] = null;
+
+      setBlogElements(obj);
 
       navigate("/blog/main");
     } catch (error) {
@@ -167,13 +166,17 @@ export const Edit = () => {
         const data = await response.json();
         Swal.fire("Solicitud Enviada", data.message);
 
-        setLoading(false);
-        setContent("");
-        setTitle("");
-        setCategory("");
-        setMeta("");
-        setImagen(null);
-        setPreviewImage(null);
+        let obj = { ...blogElements };
+        obj["content"] = "";
+        obj["title"] = "";
+        obj["category"] = "";
+        obj["meta"] = "";
+        obj["date"] = "";
+        obj["comments"] = 0;
+        obj["previewImage"] = null;
+        obj["imagen"] = null;
+
+        setBlogElements(obj);
 
         navigate("/blog/main");
 
@@ -226,8 +229,7 @@ export const Edit = () => {
       <EditionElement />
       <div id="adminComments">
         <button onClick={handleComments}>
-          {" "}
-          Administrar {comments} comentarios
+          Administrar {blogElements.comments} comentarios
         </button>
       </div>
     </section>
