@@ -45,23 +45,19 @@ export const EditionElement = () => {
     setBlogElements(obj);
   };
 
-  const onBlurEsp = useCallback(
-    (newContent) => {
-      let obj = { ...blogElements };
+
+const onBlurEsp = (newContent) => {
+  let obj = { ...blogElements };
       obj["content"] = newContent;
       setBlogElements(obj);
-    },
-    [blogElements["content"]]
-  );
+};
 
-  const onBlurEng = useCallback(
-    (newContent) => {
-      let obj = { ...blogElements };
+const onBlurEng = (newContent) => {
+  let obj = { ...blogElements };
       obj["content_eng"] = newContent;
       setBlogElements(obj);
-    },
-    [blogElements["content_eng"]]
-  );
+};
+
 
   const handleOnChange = (e) => {
     let value = e.target.value;

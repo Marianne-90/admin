@@ -5,7 +5,9 @@ import Swal from "sweetalert2";
 
 export const CategoryElement = ({
   categoria_nombre,
+  categoria_nombre_eng,
   categoria_descripcion,
+  categoria_descripcion_eng,
   categoria_id,
   index,
   id,
@@ -38,7 +40,9 @@ export const CategoryElement = ({
     formData.append("usuario", id);
     formData.append("id", categoria_id);
     formData.append("categoria", categoria_nombre);
+    formData.append("categoria_eng", categoria_nombre_eng);
     formData.append("descripcion", categoria_descripcion);
+    formData.append("descripcion_eng", categoria_descripcion_eng);
 
     try {
       const response = await fetch(`${mainUrl}blog/updatecategory`, {
@@ -104,6 +108,7 @@ export const CategoryElement = ({
 
   return (
     <form action="POST" onSubmit={handleSubmit}>
+        <h6 id="miniTitle">Español</h6>
       <div className="inputContainer">
         <div>
           <p>Categoría</p>
@@ -123,6 +128,31 @@ export const CategoryElement = ({
             className="categoria_descripcion"
             name="categoria_descripcion"
             value={categoria_descripcion}
+            onChange={(e) => onChangeCategory(e, index)}
+            maxLength={400}
+          />
+        </div>
+      </div>
+      <h6 id="miniTitle">Inglés</h6>
+      <div className="inputContainer">
+        <div>
+          <p>Categoría</p>
+          <input
+            type="text"
+            className="nombre"
+            name="categoria_nombre_eng"
+            value={categoria_nombre_eng}
+            onChange={(e) => onChangeCategory(e, index)}
+            maxLength={60}
+          />
+        </div>
+        <div>
+          <p>Descripción</p>
+          <textarea
+            type="text"
+            className="categoria_descripcion"
+            name="categoria_descripcion_eng"
+            value={categoria_descripcion_eng}
             onChange={(e) => onChangeCategory(e, index)}
             maxLength={400}
           />

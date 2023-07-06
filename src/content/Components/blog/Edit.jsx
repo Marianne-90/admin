@@ -44,7 +44,9 @@ export const Edit = () => {
       .then((response) => response.json())
       .then((data) => {
         obj["content"] = data.contenido;
+        obj["content_eng"] = data.contenido_eng;
         obj["title"] = data.titulo;
+        obj["title_eng"] = data.titulo_eng;
         obj["category"] = data.categoria_id;
         obj["meta"] = data.meta;
         obj["autor"] = data.autor;
@@ -90,16 +92,29 @@ export const Edit = () => {
 
   const handleSave = async (state) => {
     const cleanedContent = DOMPurify.sanitize(blogElements.content);
+    const cleanedContent_eng = DOMPurify.sanitize(blogElements.content_eng);
+
+
     setLoading(true);
     const formData = new FormData();
     formData.append("usuario_id", userID);
     formData.append("blog_id", id);
     formData.append("categoria_id", blogElements.category);
-    formData.append("titlulo", blogElements.title);
+    formData.append("titulo", blogElements.title);
+    formData.append("titulo_eng", blogElements.title_eng);
     formData.append("metadatos", blogElements.meta);
     formData.append("estado", state);
     formData.append("content", cleanedContent);
+    formData.append("content_eng", cleanedContent_eng);
     formData.append("img", blogElements.imagen);
+
+    //*! ESTO ES PARA SABER SI DEBO ELIMINAR LA IMAGEN 
+
+    if(blogElements.previewImage === null){
+      formData.append("deleteImg", "eliminar");
+    } else  formData.append("deleteImg", "");
+
+
 
     try {
       const response = await fetch(`${mainUrl}blog/updateBlog`, {
@@ -110,11 +125,14 @@ export const Edit = () => {
 
       const data = await response.json();
       Swal.fire("Solicitud Enviada", data.message);
+
       setLoading(false);
 
       let obj = { ...blogElements };
       obj["content"] = "";
+      obj["content_eng"] = "";
       obj["title"] = "";
+      obj["title_eng"] = "";
       obj["category"] = "";
       obj["meta"] = "";
       obj["date"] = "";
@@ -168,7 +186,9 @@ export const Edit = () => {
 
         let obj = { ...blogElements };
         obj["content"] = "";
+        obj["content_eng"] = "";
         obj["title"] = "";
+        obj["title_eng"] = "";
         obj["category"] = "";
         obj["meta"] = "";
         obj["date"] = "";

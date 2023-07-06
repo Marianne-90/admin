@@ -305,6 +305,15 @@
   margin-left: 5px;
 }
 
+.MainBlog  #miniTitle{
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #585858;
+  margin: 0;
+  margin-left: 5px;
+}
+
 .MainBlog .newBlog .mainTitle {
   margin: 20px 0;
 }
@@ -472,7 +481,7 @@ margin-bottom: 20px;
   width: 140px;
 }
 
-.MainBlog .blogSettings .category form button:nth-child(3) {
+.MainBlog .blogSettings .category form button:nth-child(6) {
   margin-left: 20px;
 }
 

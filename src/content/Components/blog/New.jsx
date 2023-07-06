@@ -33,6 +33,8 @@ export const New = () => {
       clean["previewImage"] = null;
       clean["content"] = "";
       clean["title"] = "";
+      clean["content_eng"] = "";
+      clean["title_eng"] = "";
       clean["category"] = "";
       clean["meta"] = "";
       return clean;
@@ -96,15 +98,18 @@ export const New = () => {
 
   const handleSave = async (state) => {
     const cleanedContent = DOMPurify.sanitize(blogElements.content);
+    const cleanedContent_eng = DOMPurify.sanitize(blogElements.content_eng);
     setLoading(true);
 
     const formData = new FormData();
     formData.append("usuario_id", id);
     formData.append("categoria_id", blogElements.category);
-    formData.append("titlulo", blogElements.title);
+    formData.append("titulo", blogElements.title);
+    formData.append("titulo_eng", blogElements.title_eng);
     formData.append("metadatos", blogElements.meta);
     formData.append("estado", state);
     formData.append("content", cleanedContent);
+    formData.append("content_eng", cleanedContent_eng);
     formData.append("img", blogElements.imagen);
 
     try {
@@ -122,6 +127,8 @@ export const New = () => {
       let obj = { ...blogElements };
       obj["content"] = "";
       obj["title"] = "";
+      obj["content_eng"] = "";
+      obj["title_eng"] = "";
       obj["category"] = "";
       obj["meta"] = "";
       obj["date"] = "";
@@ -152,6 +159,8 @@ export const New = () => {
         let obj = { ...blogElements };
         obj["content"] = "";
         obj["title"] = "";
+        obj["content_eng"] = "";
+        obj["title_eng"] = "";
         obj["category"] = "";
         obj["meta"] = "";
         obj["date"] = "";
