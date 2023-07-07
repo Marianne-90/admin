@@ -20,12 +20,16 @@ export const Prev = () => {
   } = useContext(BlogContext);
 
   const [categoryName, setcategoryName] = useState("");
+  const [routeState, setRouteState] = useState("Editar");
 
   const navigate = useNavigate();
 
   const location = useLocation();
-  const id = new URLSearchParams(location.search).get("id");
-  const edit = new URLSearchParams(location.search).get("edition");
+
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get("id");
+  const edit = queryParams.get("edition");
+  const len = queryParams.get("len");
 
   const getBlog = async () => {
     let obj = { ...blogElements };
@@ -33,7 +37,9 @@ export const Prev = () => {
       .then((response) => response.json())
       .then((data) => {
         obj["content"] = data.contenido;
+        obj["content_eng"] = data.contenido_eng;
         obj["title"] = data.titulo;
+        obj["title_eng"] = data.titulo_eng;
         obj["category"] = data.categoria_id;
         obj["meta"] = data.meta;
         obj["autor"] = data.autor;
@@ -62,7 +68,11 @@ export const Prev = () => {
   const categoryNameSelector = () => {
     categories.forEach((element) => {
       if (element.categoria_id == blogElements.category) {
-        setcategoryName(element.categoria_nombre);
+        if (len === null || len === "esp") {
+          setcategoryName(element.categoria_nombre);
+        } else if (len === "eng") {
+          setcategoryName(element.categoria_nombre_eng);
+        }
       }
     });
   };
@@ -89,12 +99,13 @@ export const Prev = () => {
       let obj = { ...blogElements };
       obj["date"] = formattedDate;
       setBlogElements(obj);
+      setRouteState("Nuevo")
     }
   }, []);
 
   useEffect(() => {
     categoryNameSelector();
-  }, [blogElements.category]);
+  }, [blogElements.category , len]);
 
   const handleNavigate = () => {
     if (pageBlock == "edit") {
@@ -102,11 +113,36 @@ export const Prev = () => {
     } else navigate(`/blog/${pageBlock}?load=true`);
   };
 
+  const handleChangeLenguaje = () => {
+    let string = "";
+    let path = location.pathname;
+    let changeLen = "";
+
+    if (len === null || len === "esp") {
+      changeLen = "eng";
+    } else if (len === "eng") {
+      changeLen = "esp";
+    }
+    
+
+    queryParams.forEach((value, key) => {
+      if (key !== "len") {
+        let param = `&${key}=${value}`;
+        string = `${string}${param}`;
+      }
+    });
+
+    navigate(`${path}?len=${changeLen}${string}`);
+  };
+
   return (
     <section className="prevView">
       <div className="blogSubNavbar">
-        <RoutesDictionary routes="blog nuevo ver" />
+        <RoutesDictionary routes={`Blog ${routeState} Ver`}/>
         <div className="buttons">
+          <button onClick={handleChangeLenguaje} className="save">
+            {len === "eng" ? "Español" : "English"}
+          </button>
           <button onClick={handleNavigate} className="edit">
             Editar
           </button>
@@ -116,8 +152,8 @@ export const Prev = () => {
         <h6>
           {categoryName} / {blogElements.date}
         </h6>
-        <h1>{blogElements.title}</h1>
-        <h6>por: {blogElements.autor}</h6>
+        <h1>{len === "eng"? blogElements.title_eng : blogElements.title}</h1>
+        <h6>{len === "eng"? "By: " : "Por: "}{blogElements.autor}</h6>
 
         {blogElements.previewImage && (
           <div className="prevImageContainer">
@@ -125,7 +161,9 @@ export const Prev = () => {
           </div>
         )}
 
-        <section className="body">{HTMLReactParser(blogElements.content)}</section>
+        <section className="body">
+          {len === "eng"? HTMLReactParser(blogElements.content_eng) : HTMLReactParser(blogElements.content) }
+        </section>
       </div>
     </section>
   );

@@ -376,6 +376,10 @@
   outline: none;
 }
 
+.MainBlog .prevView .content {
+  margin-top: 20px;
+}
+
 .MainBlog .prevView .content > h1 {
   color: #3d3d3d97;
   margin: 0px;

@@ -21,9 +21,9 @@ export const Main = () => {
 
   const getBlogs = async (order) => {
     return fetch(`${mainUrl}blog/bloglist/${order}`)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+         setBlogList(data);
       })
       .catch((error) => console.error(error));
   };
